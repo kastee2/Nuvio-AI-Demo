@@ -25,11 +25,7 @@ export default function Home() {
       {step === 'login' && <Login onLogin={handleLogin} />}
       {step === 'map' && <MapPage onContinue={handleMapContinue} />}
      {step === 'upload' && (
-  <UploadPage
-    onUploadComplete={handleUploadComplete}
-    location={location}  // Aquí pasas la propiedad location
-  />
-)}
+{step === 'upload' && <UploadPage onUploadComplete={handleUploadComplete} location={location} />}
 
       {step === 'results' && <ResultsPage results={results} onBack={handleBackHome} />}
     </div>
