@@ -24,7 +24,13 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4">
       {step === 'login' && <Login onLogin={handleLogin} />}
       {step === 'map' && <MapPage onContinue={handleMapContinue} />}
-      {step === 'upload' && <UploadPage onUploadComplete={handleUploadComplete} />}
+     {step === 'upload' && (
+  <UploadPage
+    onUploadComplete={handleUploadComplete}
+    location={location}  // Aquí pasas la propiedad location
+  />
+)}
+
       {step === 'results' && <ResultsPage results={results} onBack={handleBackHome} />}
     </div>
   );
