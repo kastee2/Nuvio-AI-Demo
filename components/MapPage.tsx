@@ -1,3 +1,4 @@
+// MapPage.tsx
 'use client';
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -17,6 +18,7 @@ export default function MapPage({ onContinue }: MapPageProps) {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           });
+          onContinue(position.coords.latitude, position.coords.longitude);  // Llamamos a onContinue con la ubicación
         },
         (error) => {
           console.error("Error getting location:", error);
@@ -25,13 +27,7 @@ export default function MapPage({ onContinue }: MapPageProps) {
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
-  }, []);
-
-  const handleContinue = () => {
-    if (location) {
-      onContinue(location.lat, location.lng);
-    }
-  };
+  }, [onContinue]);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center space-y-6">
@@ -47,7 +43,7 @@ export default function MapPage({ onContinue }: MapPageProps) {
             className="rounded-xl border-2 border-orange-500"
           />
           <button
-            onClick={handleContinue}
+            onClick={() => onContinue(location.lat, location.lng)}
             className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded mt-4"
           >
             Continuar
