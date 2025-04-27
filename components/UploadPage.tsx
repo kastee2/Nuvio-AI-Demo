@@ -13,7 +13,7 @@ export default function UploadPage({ location, onUploadComplete }: UploadPagePro
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file || !location) return; // Verifica si location está disponible.
 
     setLoading(true);
     setUploadSuccess(false);
@@ -24,7 +24,7 @@ export default function UploadPage({ location, onUploadComplete }: UploadPagePro
     formData.append('Longitud', String(location.lng));
 
     try {
-      const response = await fetch('https://2158-34-150-218-232.ngrok-free.app/predict', {
+      const response = await fetch('https://2158-34-150-218-232.ngrok-free.app/predict', { // Asegúrate de que este URL sea correcto.
         method: 'POST',
         body: formData
       });
