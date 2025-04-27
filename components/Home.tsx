@@ -1,3 +1,4 @@
+// Home.tsx
 'use client';
 import { useState } from 'react';
 import Login from './Login';
@@ -8,7 +9,7 @@ import ResultsPage from './ResultsPage';
 export default function Home() {
   const [step, setStep] = useState<'login' | 'map' | 'upload' | 'results'>('login');
   const [results, setResults] = useState<any>(null);
-  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null); // Asegúrate de tener este estado
+  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null); // Aquí definimos el estado location
 
   const handleLogin = () => setStep('map');
   const handleMapContinue = () => setStep('upload');
@@ -24,8 +25,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4">
       {step === 'login' && <Login onLogin={handleLogin} />}
-      {step === 'map' && <MapPage onContinue={handleMapContinue} />}
-      {step === 'upload' && <UploadPage onUploadComplete={handleUploadComplete} location={location} />} {/* Corregido */}
+      {step === 'map' && <MapPage onContinue={setLocation} />} {/* Aquí estamos pasando setLocation para obtener la ubicación */}
+      {step === 'upload' && <UploadPage onUploadComplete={handleUploadComplete} location={location} />} {/* Pasamos location a UploadPage */}
       {step === 'results' && <ResultsPage results={results} onBack={handleBackHome} />}
     </div>
   );
